@@ -1,15 +1,53 @@
 import React from 'react';
 
 
-class Comments extends React.Component {
+const Comments = React.createClass({
+    renderComment(comment, i) {
+        return(
+            <div className="comment" key={ i }>
+                <p>
+                    <strong>{comment.user}</strong>
+                    {comment.text}
+                    <button
+                        onClick={ this.props.removeComment.bind(null, this.props.params.postId, i) }
+                        className="remove-comment">&times;</button>
+                </p>
+            </div>
+        )
+    },
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        const postId = this.props.params.postId;
+        const author = this.refs.author.value;
+        const comment = this.refs.comment.value;
+
+        console.log(postId, author, comment);
+
+        this.props.addComment(postId, author, comment);
+        this.refs.commentForm.reset();
+    },
 
 	render() {
 		return (
-			<div className="comment">
-                Here are the comments
+			<div className="comments">
+                {
+                    this.props.postComments.map(this.renderComment)
+                }
+
+                <form ref="commentForm"
+                    onSubmit={ this.handleSubmit }
+                    className="comment-form"
+                    >
+                    <input type="text" ref="author" placeholder="Author" />
+                    <input type="text" ref="comment" placeholder="comment" />
+                    <input type="submit" hidden />
+
+                </form>
             </div>
 		);
 	}
-}
+});
 
 export default Comments;

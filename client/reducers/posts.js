@@ -12,12 +12,12 @@ const posts = (state = [], action) => {
         // return updated state
             console.log('incrementing likes');
             const i = action.index;
-            
+
             return [
                 ...state.slice(0, i), // before one updating
                 {
                     ...state[i],
-                    likes: state[i].likes + 1
+                    likes: state[i].likes + 10
                 }, // the one we are updating
                 ...state.slice(i + 1), // one after updating
             ];

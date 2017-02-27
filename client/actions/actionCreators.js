@@ -8,6 +8,7 @@ const increment = (index) => {
 
 // add comment
 const addComment = (postId, author, comment) => {
+	console.log('testing dispatch comments');
     return {
         type: 'ADD_COMMENT',
         comment,
